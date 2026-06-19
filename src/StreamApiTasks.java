@@ -120,10 +120,13 @@ public class StreamApiTasks {
 		.sum();
 	}
 
-    static OptionalDouble averageDeliveredOrderValue(List<Order> orders) {
-        // TODO: task 6
-        return OptionalDouble.empty();
-    }
+//TASK6(.filter .maptodouble .optionaldouble)
+	static OptionalDouble averageDeliveredOrderValue(List<Order> orders) {
+		return orders.stream()
+		.filter(o -> o.status() == OrderStatus.DELIVERED)
+		.maptoDouble(Order::totalValue)
+		.average();
+	}
 
     static Map<OrderStatus, Long> countByStatus(List<Order> orders) {
         // TODO: task 7
