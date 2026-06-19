@@ -101,10 +101,16 @@ public class StreamApiTasks {
 		.toList();
 	}
 
-    static List<String> soldProductNames(List<Order> orders) {
-        // TODO: task 4
-        return List.of();
-    }
+//TASK4
+	static List<String> soldProductNames(List<Order> orders) {
+		return orders.stream()
+		.filter(o -> o.status() != OrderStatus.CANCELLED)
+		.flatMap(o -> o.items().stream())
+		.map(i -> i.product().name())
+		.distinct()
+		.sorted()
+		.toList();
+	}
 
     static double totalRevenue(List<Order> orders) {
         // TODO: task 5
