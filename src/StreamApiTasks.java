@@ -75,10 +75,15 @@ public class StreamApiTasks {
         );
     }
 
-    static List<String> activeOrderIds(List<Order> orders) {
-        // TODO: task 1
-        return List.of();
-    }
+//TASK1
+	static List<String> activeOrderIds(List<Order> orders) {
+		return orders.stream()
+		.filter(o -> o.status() != OrderStatus.CANCELLED)
+		.map(Order::id)
+		.toList();
+	}
+
+
 
     static List<Order> ordersAbove(List<Order> orders, double minValue) {
         // TODO: task 2
@@ -151,15 +156,6 @@ public class StreamApiTasks {
         System.out.println(mostExpensiveDeliveredOrder(orders).map(Order::id).orElse("none"));
         System.out.println(activeOrderStatistics(orders));
     }
-
-//TASK1
-	static List<String> activeOrderIds(List<Order> orders) {
-		return orders.stream()
-		.filter(o -> o.status() != OrderStatus.CANCELLED)
-		.map(Order::id)
-		.toList();
-	}
-
 
 }
 
