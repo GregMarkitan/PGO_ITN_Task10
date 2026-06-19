@@ -171,7 +171,7 @@ public class StreamApiTasks {
     static Map<Boolean, List<Order>> partitionActiveOrdersByValue(List<Order> orders, double threshold) {
 	
 	Predicate<Order> isActive = o -> o.status() != OrderStatus.CANCELLED;
-	Predicate<Order> meetsThreshold = o -> o.totalValue() >= threshold;
+	Predicate<Order> meetsThreshold = o -> o.totalValue() >= 3000;
 	return orders.stream()
 		.filter(isActive)
 		.collect(Collectors.partitioningBy(meetsThreshold));
