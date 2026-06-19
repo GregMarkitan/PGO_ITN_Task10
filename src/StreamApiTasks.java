@@ -176,10 +176,12 @@ public class StreamApiTasks {
 		.filter(isActive)
 		.collect(Collectors.partitioningBy(meetsThreshold));
     }
+//TASK11(.filter .max .Optional)
 
     static Optional<Order> mostExpensiveDeliveredOrder(List<Order> orders) {
-        // TODO: task 11
-        return Optional.empty();
+	return orders.stream()
+		.filter(o -> o.status() == OrderStatus.DELIVERED)
+		.max(Comparator.comparingDouble(Order::totalValue));
     }
 
     static DoubleSummaryStatistics activeOrderStatistics(List<Order> orders) {
@@ -200,7 +202,7 @@ public class StreamApiTasks {
         System.out.println(revenueByCategory(orders));
         System.out.println(topCustomers(orders, 3));
         System.out.println(partitionActiveOrdersByValue(orders, 3000));
-        System.out.println(mostExpensiveDeliveredOrder(orders).map(Order::id).orElse("none"));
+        System.out.println("msot expensive delivered order:" + mostExpensiveDeliveredOrder(orders).map(Order::id).orElse("none"));
         System.out.println(activeOrderStatistics(orders));
     }
 
