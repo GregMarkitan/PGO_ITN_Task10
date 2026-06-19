@@ -124,7 +124,7 @@ public class StreamApiTasks {
 	static OptionalDouble averageDeliveredOrderValue(List<Order> orders) {
 		return orders.stream()
 		.filter(o -> o.status() == OrderStatus.DELIVERED)
-		.maptoDouble(Order::totalValue)
+		.mapToDouble(Order::totalValue)
 		.average();
 	}
 
