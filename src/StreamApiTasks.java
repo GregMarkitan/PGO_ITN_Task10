@@ -151,4 +151,15 @@ public class StreamApiTasks {
         System.out.println(mostExpensiveDeliveredOrder(orders).map(Order::id).orElse("none"));
         System.out.println(activeOrderStatistics(orders));
     }
+
+//TASK1
+	static List<String> activeOrderIds(List<Order> orders) {
+		return orders.stream()
+		.filter(o -> o.status() != OrderStatus.CANCELLED)
+		.map(Order::id)
+		.toList();
+	}
+
+
 }
+
