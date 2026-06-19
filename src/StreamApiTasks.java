@@ -92,10 +92,14 @@ public class StreamApiTasks {
 		.toList();
 	}
 
-    static List<String> uniqueCustomerNames(List<Order> orders) {
-        // TODO: task 3
-        return List.of();
-    }
+//TASK3
+	static List<String> uniqueCustomerNames(List<Order> orders) {
+		return orders.stream()
+		.map(Order::customerName)
+		.distinct()
+		.sorted()
+		.toList();
+	}
 
     static List<String> soldProductNames(List<Order> orders) {
         // TODO: task 4
