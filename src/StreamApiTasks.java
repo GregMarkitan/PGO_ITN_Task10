@@ -137,9 +137,15 @@ public class StreamApiTasks {
 	.collect(Collectors.groupingBy( Order::status, Collectors.counting()));	
 	}
 
+//TASK8(.flatmap .grupingByv .summinDouble)
+
     static Map<String, Double> revenueByCategory(List<Order> orders) {
-        // TODO: task 8
-        return Map.of();
+	return orders.stream()
+	.filter(o -> o.status() != OrderStatus.CANCELLED)
+	.flatMap(o -> o.items().stream())
+	.collect(Collectors.groupingBy(
+		i -> i.product().category(),
+		Collectors.summingDouble(OrderItem::totalPrice)));
     }
 
     static Map<String, Double> topCustomers(List<Order> orders, int limit) {
