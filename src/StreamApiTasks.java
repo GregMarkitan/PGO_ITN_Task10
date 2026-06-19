@@ -113,6 +113,7 @@ public class StreamApiTasks {
 	}
 
 //TASK5(.filter .maptodouble .sum)
+
 	static double totalRevenue(List<Order> orders) {
 		return orders.stream()
 		.filter(o -> o.status() != OrderStatus.CANCELLED)
@@ -121,6 +122,7 @@ public class StreamApiTasks {
 	}
 
 //TASK6(.filter .maptodouble .optionaldouble)
+
 	static OptionalDouble averageDeliveredOrderValue(List<Order> orders) {
 		return orders.stream()
 		.filter(o -> o.status() == OrderStatus.DELIVERED)
@@ -128,10 +130,12 @@ public class StreamApiTasks {
 		.average();
 	}
 
-    static Map<OrderStatus, Long> countByStatus(List<Order> orders) {
-        // TODO: task 7
-        return Map.of();
-    }
+//TASK7(.collect .groupingBy .counting collectos? collectors.groupingBy collectors.counting)  
+ 
+	static Map<OrderStatus, Long> countByStatus(List<Order> orders) {
+	return orders.stream()
+	.collect(Collectors.groupingBy( Order::status, Collectors.counting()));	
+	}
 
     static Map<String, Double> revenueByCategory(List<Order> orders) {
         // TODO: task 8
