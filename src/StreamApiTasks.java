@@ -148,7 +148,7 @@ public class StreamApiTasks {
 		Collectors.summingDouble(OrderItem::totalPrice)));
     }
 
-//TASK((.groupingBy .entrySet .limit Cllectors.toMap(..., LinkedHashMap::new))
+//TASK9(.groupingBy .entrySet .limit Cllectors.toMap(..., LinkedHashMap::new))
 
     static Map<String, Double> topCustomers(List<Order> orders, int limit) {
 	return orders.stream()
@@ -165,9 +165,14 @@ public class StreamApiTasks {
 		LinkedHashMap::new ));
     }
 
+//TASK10(.partitioningBy .predicate)
+
     static Map<Boolean, List<Order>> partitionActiveOrdersByValue(List<Order> orders, double threshold) {
-        // TODO: task 10
-        return Map.of();
+	return orders.stream()
+		.filter(isActive)
+		.collect(Collectors.partitioningBy(meetsThreshold));
+	Predicate<Order> is Active = o -> o.status() != OrderStatus.CANCELLED;
+	Predicate<Order> meetsThreshold = o -> o.totalValue() >= threshold;
     }
 
     static Optional<Order> mostExpensiveDeliveredOrder(List<Order> orders) {
