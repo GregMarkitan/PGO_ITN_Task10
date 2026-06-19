@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 public class StreamApiTasks {
 
@@ -168,11 +169,12 @@ public class StreamApiTasks {
 //TASK10(.partitioningBy .predicate)
 
     static Map<Boolean, List<Order>> partitionActiveOrdersByValue(List<Order> orders, double threshold) {
+	
+	Predicate<Order> isActive = o -> o.status() != OrderStatus.CANCELLED;
+	Predicate<Order> meetsThreshold = o -> o.totalValue() >= threshold;
 	return orders.stream()
 		.filter(isActive)
 		.collect(Collectors.partitioningBy(meetsThreshold));
-	Predicate<Order> is Active = o -> o.status() != OrderStatus.CANCELLED;
-	Predicate<Order> meetsThreshold = o -> o.totalValue() >= threshold;
     }
 
     static Optional<Order> mostExpensiveDeliveredOrder(List<Order> orders) {
